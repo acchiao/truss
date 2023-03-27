@@ -1,0 +1,56 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "compose/local/django/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: "docker"
+    directory: "compose/local/docs/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: "docker"
+    directory: "compose/local/node/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "compose/production/aws/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "compose/production/django/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: "docker"
+    directory: "compose/production/postgres/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "docker"
+    directory: "compose/production/traefik/"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
