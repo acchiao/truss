@@ -15,7 +15,7 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 
 # Requirements are installed here to ensure they will be cached.
-COPY ./requirements /requirements
+COPY requirements/ /requirements/
 
 # create python dependency wheels
 RUN pip wheel \
@@ -45,14 +45,14 @@ RUN apt-get update \
       && rm -rf /var/lib/apt/lists/*
 
 # copy python dependency wheels from python-build-stage
-COPY --from=python-build-stage /usr/src/app/wheels /wheels
+COPY --from=python-build-stage /usr/src/app/wheels/ /wheels/
 
 # use wheels to install python dependencies
-RUN pip install --no-cache /wheels/* \
+RUN pip install --no-cache-dir /wheels/* \
       && rm -rf /wheels
 
-COPY ./compose/local/docs/start /start-docs
-RUN sed -i 's/\r$//g' /start-docs
-RUN chmod +x /start-docs
+COPY compose/local/docs/start /start-docs
+RUN sed -i 's/\r$//g' /start-docs \
+      && chmod +x /start-docs
 
 WORKDIR /docs
