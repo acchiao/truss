@@ -1,9 +1,5 @@
 name: CI
 
-env:
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
-
 on:
   push:
   pull_request:
@@ -12,6 +8,10 @@ on:
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
+
+env:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
 
 jobs:
   lint:
