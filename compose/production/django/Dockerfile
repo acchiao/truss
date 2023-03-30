@@ -6,7 +6,7 @@ ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
 
 COPY package.json ${APP_HOME}/package.json
-RUN npm install --omit dev && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 COPY ./ ${APP_HOME}/
 RUN npm run build
