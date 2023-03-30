@@ -28,11 +28,6 @@ updates:
       interval: "daily"
 
   - package-ecosystem: "docker"
-    directory: "compose/production/aws/"
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "docker"
     directory: "compose/production/django/"
     schedule:
       interval: "daily"
