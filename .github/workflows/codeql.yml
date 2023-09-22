@@ -19,7 +19,7 @@ jobs:
       matrix:
         language: [ javascript, python ]
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.0
       - uses: github/codeql-action/init@v2.20.1
         with:
           languages: ${{ matrix.language }}
