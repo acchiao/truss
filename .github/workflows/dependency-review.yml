@@ -11,5 +11,5 @@ jobs:
   dependency-review:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3.5.0
+      - uses: actions/checkout@v4.1.5
       - uses: actions/dependency-review-action@v3.0.6
