@@ -50,7 +50,7 @@ jobs:
             type=sha,prefix=,suffix=,format=long
             type=sha,prefix=,suffix=,format=short
       - id: build
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: compose/production/django/Dockerfile
