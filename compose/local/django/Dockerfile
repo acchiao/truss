@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.10.10-slim-bullseye as python
+FROM python:3.10.15-slim-bullseye as python
 
 # Python build stage
 FROM python as python-build-stage
