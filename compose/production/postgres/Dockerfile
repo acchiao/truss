@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM postgres:14.7-bullseye
+FROM postgres:17.4-bullseye
 
 COPY compose/production/postgres/maintenance /usr/local/bin/maintenance
 
