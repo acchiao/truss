@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18.15.0-bullseye-slim as client-builder
+FROM node:18.15.0-bullseye-slim AS client-builder
 
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
@@ -12,10 +12,10 @@ COPY ./ ${APP_HOME}/
 RUN npm run build
 
 # define an alias for the specfic python version used in this file.
-FROM python:3.10.10-slim-bullseye as python
+FROM python:3.10.10-slim-bullseye AS python
 
 # Python build stage
-FROM python as python-build-stage
+FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=production
 ARG APP_HOME=/app
@@ -37,7 +37,7 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels \
       --requirement ${BUILD_ENVIRONMENT}.txt
 
 # Python 'run' stage
-FROM python as python-run-stage
+FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT=production
 ARG APP_HOME=/app
