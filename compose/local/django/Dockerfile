@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.10.10-slim-bullseye as python
+FROM python:3.10.10-slim-bullseye AS python
 
 # Python build stage
-FROM python as python-build-stage
+FROM python AS python-build-stage
 
 ARG BUILD_ENVIRONMENT=local
 ARG APP_HOME=/app
@@ -25,7 +25,7 @@ RUN pip wheel --wheel-dir /usr/src/app/wheels \
       --requirement ${BUILD_ENVIRONMENT}.txt
 
 # Python 'run' stage
-FROM python as python-run-stage
+FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT=local
 ARG APP_HOME=/app
