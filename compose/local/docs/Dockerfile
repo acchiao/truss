@@ -5,7 +5,7 @@ FROM python:3.10.10-slim-bullseye AS python
 # Python build stage
 FROM python AS python-build-stage
 
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 RUN apt-get update \
       && apt-get install --yes --no-install-recommends \
@@ -29,8 +29,8 @@ RUN pip wheel \
 FROM python AS python-run-stage
 
 ARG BUILD_ENVIRONMENT
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 RUN apt-get update \
       && apt-get install --yes --no-install-recommends \
