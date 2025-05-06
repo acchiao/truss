@@ -12,7 +12,7 @@ COPY ./ ${APP_HOME}/
 RUN npm run build
 
 # define an alias for the specfic python version used in this file.
-FROM python:3.10.10-slim-bullseye AS python
+FROM python:3.10.17-slim-bullseye AS python
 
 # Python build stage
 FROM python AS python-build-stage
