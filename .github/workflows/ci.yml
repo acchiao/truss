@@ -22,6 +22,10 @@ jobs:
         with:
           python-version: "3.10"
       - uses: pre-commit/action@v3.0.0
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          recursive: true
+
   pytest:
     runs-on: ubuntu-22.04
     steps:
