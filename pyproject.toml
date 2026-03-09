@@ -37,8 +37,8 @@ dependencies = [
   "python-slugify==8.0.4",
   "redis==7.3.0",
   "sentry-sdk==2.54.0",
-  "uvicorn-worker==0.4.0",
   "uvicorn[standard]==0.41.0",
+  "uvicorn-worker==0.4.0",
   "whitenoise==6.12.0",
 ]
 
@@ -72,7 +72,6 @@ extend-exclude = [
   "*/migrations/*.py",
   "staticfiles/*",
 ]
-
 lint.select = [
   "A",
   "ASYNC",
@@ -137,24 +136,18 @@ lint.isort.force-single-line = true
 [tool.pyproject-fmt]
 keep_full_version = true
 
-# ==== pytest ====
-
-[tool.pytest.ini_options]
-minversion = "6.0"
-addopts = "--ds=config.settings.test --reuse-db --import-mode=importlib"
-python_files = [
+[tool.pytest]
+ini_options.minversion = "6.0"
+ini_options.addopts = "--ds=config.settings.test --reuse-db --import-mode=importlib"
+ini_options.python_files = [
   "tests.py",
   "test_*.py",
 ]
 
-# ==== Coverage ====
-
-[tool.coverage.run]
-include = [ "truss/**" ]
-omit = [ "*/migrations/*", "*/tests/*" ]
-plugins = [ "django_coverage_plugin" ]
-
-# ==== mypy ====
+[tool.coverage]
+run.include = [ "truss/**" ]
+run.omit = [ "*/migrations/*", "*/tests/*" ]
+run.plugins = [ "django_coverage_plugin" ]
 
 [tool.mypy]
 python_version = "3.13"
@@ -167,16 +160,13 @@ plugins = [
   "mypy_django_plugin.main",
   "mypy_drf_plugin.main",
 ]
-
-[[tool.mypy.overrides]]
-# Django migrations should not produce any errors:
-module = "*.migrations.*"
-ignore_errors = true
+overrides = [
+  # Django migrations should not produce any errors:
+  { module = "*.migrations.*", ignore_errors = true },
+]
 
 [tool.django-stubs]
 django_settings_module = "config.settings.test"
-
-# ==== djLint ====
 
 [tool.djlint]
 blank_line_after_tag = "load,extends"
@@ -189,9 +179,5 @@ include = "H017,H035"
 indent = 2
 max_line_length = 119
 profile = "django"
-
-[tool.djlint.css]
-indent_size = 2
-
-[tool.djlint.js]
-indent_size = 2
+css.indent_size = 2
+js.indent_size = 2
