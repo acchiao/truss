@@ -70,16 +70,16 @@ uv run coverage html
 
 ### URL Structure
 
-| Path | Purpose |
-| --- | --- |
+| Path                 | Purpose                                                                                  |
+| -------------------- | ---------------------------------------------------------------------------------------- |
 | `settings.ADMIN_URL` | Django admin (default `admin/`, overridden via `DJANGO_ADMIN_URL` env var in production) |
-| `/api/` | DRF router (`config/api_router.py`) |
-| `/api/users/` | User viewset; `/api/users/me/` for current user |
-| `/api/auth-token/` | Obtain DRF auth token (POST email + password) |
-| `/api/schema/` | OpenAPI schema (drf-spectacular) |
-| `/api/docs/` | Swagger UI (admin-only in production) |
-| `/accounts/` | django-allauth (login, signup, email verification, MFA) |
-| `/users/` | User HTML views (detail, redirect, update) |
+| `/api/`              | DRF router (`config/api_router.py`)                                                      |
+| `/api/users/`        | User viewset; `/api/users/me/` for current user                                          |
+| `/api/auth-token/`   | Obtain DRF auth token (POST email + password)                                            |
+| `/api/schema/`       | OpenAPI schema (drf-spectacular)                                                         |
+| `/api/docs/`         | Swagger UI (admin-only in production)                                                    |
+| `/accounts/`         | django-allauth (login, signup, email verification, MFA)                                  |
+| `/users/`            | User HTML views (detail, redirect, update)                                               |
 
 ### Key Design Decisions
 
