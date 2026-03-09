@@ -4,33 +4,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Truss is a Django 5.2 web application (Python 3.13) scaffolded with Cookiecutter Django. It uses Docker Compose for local development with PostgreSQL, Redis, Celery, and a Node/Webpack frontend pipeline.
+Truss is a Django 5.2 web application (Python 3.13) scaffolded with Cookiecutter Django. It uses Docker Compose for local development with PostgreSQL, Redis, Celery, and a Node/Webpack frontend pipeline. Production uses Sentry for error tracking and Anymail/SendGrid for email.
 
 ## Development Environment
 
 All services run in Docker. The `justfile` is the primary task runner (not Make):
 
 ```bash
-just build          # Build the Django Docker image
-just up             # Start all containers (detached)
-just down           # Stop containers
-just logs           # Tail container logs (accepts service name arg)
-just manage <cmd>   # Run manage.py inside the Django container
-just prune          # Remove containers AND volumes (destructive)
+just build              # Build the Django Docker image
+just up                 # Start all containers (detached)
+just down               # Stop containers
+just logs               # Tail container logs (accepts service name arg)
+just manage <cmd>       # Run manage.py inside the Django container
+just manage createsuperuser  # Create an admin user
+just prune              # Remove containers AND volumes (destructive)
 ```
 
-The compose file used is `docker-compose.local.yml` (set via `COMPOSE_FILE` in the justfile).
+The compose file is `docker-compose.local.yml` (set via `COMPOSE_FILE` in the justfile). Key ports: django=8000, mailpit=8025, flower=5555, node/webpack=3000.
+
+The Django container runs `uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'` (see `compose/local/django/start`). This means template changes trigger reload too.
 
 ### Running Tests
 
 ```bash
-# Full test suite (inside Docker)
+# Inside Docker
 docker compose -f docker-compose.local.yml run django pytest
-
-# Single test file
-docker compose -f docker-compose.local.yml run django pytest truss/users/tests/test_models.py
-
-# Single test
 docker compose -f docker-compose.local.yml run django pytest truss/users/tests/test_models.py::test_user_get_absolute_url
 
 # With uv locally (requires local DB/Redis)
@@ -62,44 +60,36 @@ uv run coverage html
 
 ## Architecture
 
-### Django Project Layout
+### Project Layout
 
-- `config/` — Project configuration (settings, root URLs, ASGI/WSGI, Celery app)
-  - `config/settings/base.py` — Shared settings
-  - `config/settings/local.py` — Development overrides (debug toolbar, extensions)
-  - `config/settings/test.py` — Test overrides (MD5 hasher, fake webpack loader)
-  - `config/settings/production.py` — Production settings
-  - `config/api_router.py` — DRF router; register new API viewsets here
-  - `config/urls.py` — Root URL configuration
-- `truss/` — Application code (`APPS_DIR`)
-  - `truss/users/` — Custom user app (email-based auth, no username)
-  - `truss/users/api/` — DRF serializers and viewsets for users
-  - `truss/contrib/sites/` — Custom site migrations
-  - `truss/templates/` — Django templates (allauth overrides)
-  - `truss/static/` — Static assets (Sass, fonts, favicons)
-  - `truss/conftest.py` — Shared pytest fixtures (`user` factory)
+- `config/` — Settings, root URLs, ASGI/WSGI, Celery app. Settings split: `base.py`, `local.py`, `test.py`, `production.py`.
+- `config/api_router.py` — DRF router; register new API viewsets here.
+- `truss/` — Application code (`APPS_DIR`). New apps go here.
+- `truss/users/` — Custom user app (email-based auth, no username).
+- `truss/conftest.py` — Shared pytest fixtures (`user` factory via factory_boy).
+
+### URL Structure
+
+| Path | Purpose |
+| --- | --- |
+| `settings.ADMIN_URL` | Django admin (default `admin/`, overridden via `DJANGO_ADMIN_URL` env var in production) |
+| `/api/` | DRF router (`config/api_router.py`) |
+| `/api/users/` | User viewset; `/api/users/me/` for current user |
+| `/api/auth-token/` | Obtain DRF auth token (POST email + password) |
+| `/api/schema/` | OpenAPI schema (drf-spectacular) |
+| `/api/docs/` | Swagger UI (admin-only in production) |
+| `/accounts/` | django-allauth (login, signup, email verification, MFA) |
+| `/users/` | User HTML views (detail, redirect, update) |
 
 ### Key Design Decisions
 
-- **Custom User model** (`truss.users.models.User`): Uses email as `USERNAME_FIELD`, no username. Single `name` field instead of first/last. Managed by custom `UserManager`.
-- **Authentication**: django-allauth with email-only login (`ACCOUNT_LOGIN_METHODS = {"email"}`), mandatory email verification, MFA support.
-- **API**: Django REST Framework with token + session auth, drf-spectacular for OpenAPI schema. API docs at `/api/docs/`, schema at `/api/schema/`.
+- **Custom User model** (`truss.users.models.User`): Email as `USERNAME_FIELD`, no username. Single `name` field. Managed by custom `UserManager`.
+- **ATOMIC_REQUESTS**: Enabled in `base.py` — every view runs in a database transaction. Use `transaction.non_atomic_requests` decorator for views that need to opt out (e.g., long-running or with external API calls mid-request).
+- **Authentication**: django-allauth with email-only login, mandatory email verification, MFA support.
+- **API**: DRF with token + session auth. CORS restricted to `/api/*` paths.
 - **Task queue**: Celery with Redis broker, django-celery-beat for periodic tasks.
-- **Frontend**: Webpack (dev server on port 3000), Bootstrap 5 with custom Sass, django-webpack-loader integration.
-- **ASGI**: Uvicorn with basic WebSocket support (`config/websocket.py`).
-
-### Docker Services (local)
-
-| Service      | Port | Purpose                 |
-| ------------ | ---- | ----------------------- |
-| django       | 8000 | Web server              |
-| postgres     | —    | PostgreSQL database     |
-| redis        | —    | Cache + Celery broker   |
-| mailpit      | 8025 | Email testing UI        |
-| celeryworker | —    | Async task processing   |
-| celerybeat   | —    | Periodic task scheduler |
-| flower       | 5555 | Celery monitoring       |
-| node         | 3000 | Webpack dev server      |
+- **Frontend**: Webpack (dev server on port 3000), Bootstrap 5 with custom Sass (`truss/static/sass/custom_bootstrap_vars`), django-webpack-loader.
+- **Production**: Sentry (Django + Celery + Redis integrations), WhiteNoise for static files, GCS for media, Anymail/SendGrid for email.
 
 ### Adding New Apps
 
