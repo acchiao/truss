@@ -19,18 +19,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  linter:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code Repository
         uses: actions/checkout@v6
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Prettier
+        run: npx prettier@4.0.0-alpha.8 --check .
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version-file: ".python-version"
-      # Consider using pre-commit.ci for open source project
-      - name: Run pre-commit
+
+      - name: Ruff check
+        run: uvx ruff@0.15.5 check .
+
+      - name: Ruff format
+        run: uvx ruff@0.15.5 format --check .
+
+      - name: pyproject-fmt
+        run: uvx pyproject-fmt@2.16.2 --check pyproject.toml
+
+      - name: Pre-commit (remaining hooks)
         uses: pre-commit/action@v3.0.1
 
   # With no caching at all the entire ci process takes 3m to complete!
