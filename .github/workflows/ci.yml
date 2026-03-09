@@ -36,6 +36,9 @@ jobs:
         with:
           python-version-file: ".python-version"
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
       - name: Ruff check
         run: uvx ruff@0.15.5 check .
 
