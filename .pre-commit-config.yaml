@@ -1,4 +1,4 @@
-exclude: '^docs/|/migrations/|devcontainer.json'
+exclude: "^docs/|/migrations/|devcontainer.json"
 default_stages: [pre-commit]
 minimum_pre_commit_version: "3.2.0"
 
@@ -25,14 +25,14 @@ repos:
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
-        args: ['--tab-width', '2', '--single-quote']
-        exclude: 'truss/templates/'
+        args: ["--tab-width", "2", "--single-quote"]
+        exclude: "truss/templates/"
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: '1.30.0'
+    rev: "1.30.0"
     hooks:
       - id: django-upgrade
-        args: ['--target-version', '5.2']
+        args: ["--target-version", "5.2"]
 
   # Run the Ruff linter.
   - repo: https://github.com/astral-sh/ruff-pre-commit

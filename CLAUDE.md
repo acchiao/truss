@@ -90,16 +90,16 @@ uv run coverage html
 
 ### Docker Services (local)
 
-| Service | Port | Purpose |
-|---------|------|---------|
-| django | 8000 | Web server |
-| postgres | — | PostgreSQL database |
-| redis | — | Cache + Celery broker |
-| mailpit | 8025 | Email testing UI |
-| celeryworker | — | Async task processing |
-| celerybeat | — | Periodic task scheduler |
-| flower | 5555 | Celery monitoring |
-| node | 3000 | Webpack dev server |
+| Service      | Port | Purpose                 |
+| ------------ | ---- | ----------------------- |
+| django       | 8000 | Web server              |
+| postgres     | —    | PostgreSQL database     |
+| redis        | —    | Cache + Celery broker   |
+| mailpit      | 8025 | Email testing UI        |
+| celeryworker | —    | Async task processing   |
+| celerybeat   | —    | Periodic task scheduler |
+| flower       | 5555 | Celery monitoring       |
+| node         | 3000 | Webpack dev server      |
 
 ### Adding New Apps
 

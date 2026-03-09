@@ -21,7 +21,7 @@ services:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
-      - '8000:8000'
+      - "8000:8000"
     command: /start
 
   postgres:
@@ -75,7 +75,7 @@ services:
     image: truss_local_flower
     container_name: truss_local_flower
     ports:
-      - '5555:5555'
+      - "5555:5555"
     command: /start-flower
 
   node:
@@ -92,4 +92,4 @@ services:
       - /app/node_modules
     command: npm run dev
     ports:
-      - '3000:3000'
+      - "3000:3000"

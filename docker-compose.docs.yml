@@ -13,5 +13,5 @@ services:
       - ./config:/app/config:z
       - ./truss:/app/truss:z
     ports:
-      - '9000:9000'
+      - "9000:9000"
     command: /start-docs
