@@ -124,6 +124,7 @@ lint.select = [
   "YTT",
 ]
 lint.ignore = [
+  "COM812", # Missing trailing comma — conflicts with ruff formatter
   "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
   "S101",   # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
   "SIM102", # sometimes it's better to nest
