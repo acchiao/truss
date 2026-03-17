@@ -20,9 +20,20 @@ just manage createsuperuser  # Create an admin user
 just prune              # Remove containers AND volumes (destructive)
 ```
 
+`just manage` uses `docker compose run --rm` (creates a one-off container, not exec into a running one).
+
+Migrations run automatically on container start (`compose/local/django/start`). To create or run them manually:
+
+```bash
+just manage makemigrations
+just manage migrate
+```
+
 The compose file is `docker-compose.local.yml` (set via `COMPOSE_FILE` in the justfile). Key ports: django=8000, mailpit=8025, flower=5555, node/webpack=3000.
 
-The Django container runs `uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'` (see `compose/local/django/start`). This means template changes trigger reload too.
+The Django container runs `uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'` (see `compose/local/django/start`). Template changes trigger reload too.
+
+Debug toolbar is available in local dev at `/__debug__/`.
 
 ### Running Tests
 
@@ -36,20 +47,31 @@ uv run pytest
 uv run pytest truss/users/tests/test_views.py -k "test_detail"
 ```
 
-Pytest is configured in `pyproject.toml` with `--ds=config.settings.test --reuse-db --import-mode=importlib`.
+Pytest is configured in `pyproject.toml` with `--ds=config.settings.test --reuse-db --import-mode=importlib`. Tests use `FakeWebpackLoader` (configured in `config/settings/test.py`), so the `node` container does not need to be running.
 
-### Linting and Type Checking
+### Linting, Formatting, and Type Checking
 
 ```bash
 uv run ruff check .              # Lint
 uv run ruff check --fix .        # Lint with auto-fix
-uv run ruff format .             # Format
+uv run ruff format .             # Format Python
 uv run mypy truss                # Type check
 uv run djlint truss/templates/   # Lint Django templates
+npx prettier --check .           # Check non-Python formatting (JSON, YAML, HTML, MD)
+npx prettier --write .           # Auto-fix non-Python formatting
 pre-commit run --all-files       # Run all pre-commit hooks
 ```
 
-Pre-commit hooks: trailing-whitespace, end-of-file-fixer, prettier (HTML/JS/CSS), django-upgrade (target 5.2), ruff (check + format), pyproject-fmt, djlint.
+Pre-commit hooks (`.pre-commit-config.yaml`): trailing-whitespace, end-of-file-fixer, check-json/toml/xml/yaml, debug-statements, check-builtin-literals, check-case-conflict, check-docstring-first, detect-private-key, django-upgrade (target 5.2). Ruff, djlint, pyproject-fmt, and Prettier are **not** pre-commit hooks — run them manually.
+
+### CI Pipeline
+
+CI (`.github/workflows/ci.yml`) runs on PRs and pushes to `main`:
+
+- **Lint job**: Prettier, Ruff (check + format), pyproject-fmt, pre-commit hooks
+- **Pytest job**: `makemigrations --check` (catches uncommitted migrations), then `pytest` in Docker
+
+Ensure `pyproject-fmt` passes before pushing: `uvx pyproject-fmt pyproject.toml`.
 
 ### Coverage
 
@@ -66,12 +88,14 @@ uv run coverage html
 - `config/api_router.py` — DRF router; register new API viewsets here.
 - `truss/` — Application code (`APPS_DIR`). New apps go here.
 - `truss/users/` — Custom user app (email-based auth, no username).
-- `truss/conftest.py` — Shared pytest fixtures (`user` factory via factory_boy).
+- `truss/conftest.py` — Shared pytest fixtures (`user` factory via factory_boy, autouse `_media_storage` that redirects media to tmpdir).
 
 ### URL Structure
 
 | Path                 | Purpose                                                                                  |
 | -------------------- | ---------------------------------------------------------------------------------------- |
+| `/`                  | Home page (`pages/home.html`)                                                            |
+| `/about/`            | About page (`pages/about.html`)                                                          |
 | `settings.ADMIN_URL` | Django admin (default `admin/`, overridden via `DJANGO_ADMIN_URL` env var in production) |
 | `/api/`              | DRF router (`config/api_router.py`)                                                      |
 | `/api/users/`        | User viewset; `/api/users/me/` for current user                                          |
@@ -89,6 +113,7 @@ uv run coverage html
 - **API**: DRF with token + session auth. CORS restricted to `/api/*` paths.
 - **Task queue**: Celery with Redis broker, django-celery-beat for periodic tasks.
 - **Frontend**: Webpack (dev server on port 3000), Bootstrap 5 with custom Sass (`truss/static/sass/custom_bootstrap_vars`), django-webpack-loader.
+- **Templates**: `truss/templates/base.html` is the root layout. App templates go in `truss/templates/<app>/`. Allauth templates are overridden in `truss/templates/allauth/`.
 - **Production**: Sentry (Django + Celery + Redis integrations), WhiteNoise for static files, GCS for media, Anymail/SendGrid for email.
 
 ### Adding New Apps
@@ -98,6 +123,20 @@ uv run coverage html
 3. Register API viewsets in `config/api_router.py`
 4. Add URL patterns in `config/urls.py`
 
+### Adding Celery Tasks
+
+Tasks go in each app's `tasks.py` using the `@shared_task` decorator. They are autodiscovered by `config/celery_app.py`. See `truss/users/tasks.py` for the pattern.
+
+### Writing Tests
+
+Tests use pytest + factory_boy. Factories live in each app's `tests/factories.py`. Follow the pattern in `truss/users/tests/factories.py`:
+
+- Subclass `DjangoModelFactory`
+- Set `django_get_or_create` on Meta to avoid duplicates
+- Set `skip_postgeneration_save = True` when using `@post_generation` hooks
+
+The `user` fixture in `truss/conftest.py` is available to all tests. Add shared fixtures there; app-specific fixtures go in the app's own `conftest.py`.
+
 ### Environment Variables
 
 Stored in `.envs/.local/.django` and `.envs/.local/.postgres` (not committed). Key vars: `DATABASE_URL`, `REDIS_URL`, `DJANGO_SETTINGS_MODULE`, `USE_DOCKER`.
@@ -105,7 +144,7 @@ Stored in `.envs/.local/.django` and `.envs/.local/.postgres` (not committed). K
 ## Conventions
 
 - **Package manager**: `uv` (not pip)
-- **Linter/formatter**: Ruff (see `pyproject.toml [tool.ruff]` for enabled rules)
+- **Linter/formatter**: Ruff for Python (see `pyproject.toml [tool.ruff]`), Prettier for everything else
 - **Template linter**: djLint (profile: django)
 - **Tests**: pytest + factory_boy (factories in each app's `tests/factories.py`)
 - **Imports**: Ruff isort with `force-single-line = true` — one import per line
