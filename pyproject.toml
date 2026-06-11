@@ -50,7 +50,7 @@ dev = [
   "django-extensions==4.1",
   "django-stubs[compatible-mypy]==6.0.5",
   "djangorestframework-stubs==3.17.0",
-  "djlint==1.39.0",
+  "djlint==1.39.2",
   "factory-boy==3.3.3",
   "ipdb==0.13.13",
   "mypy==2.1.0",
