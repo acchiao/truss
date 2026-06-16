@@ -39,7 +39,7 @@ ENV PYTHONPATH="${APP_HOME}/.venv/lib/python3.13/site-packages:$PYTHONPATH"
 # Install dependencies first (cached unless pyproject.toml/uv.lock change).
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=uv.lock,target=uv.lock:rw \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync --no-install-project
 
 # Entrypoint and start scripts: stable, so copy before the source tree to keep
@@ -57,7 +57,7 @@ COPY . ${APP_HOME}
 # Install the project itself (source changes only invalidate from here down).
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=uv.lock,target=uv.lock:rw \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync
 
 ENTRYPOINT ["/entrypoint"]
