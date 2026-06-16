@@ -1,5 +1,9 @@
 export COMPOSE_FILE := "docker-compose.local.yml"
 
+# Delegate builds to Buildx Bake so the django/postgres/node images build in
+# parallel with shared BuildKit caching.
+export COMPOSE_BAKE := "true"
+
 ## Just does not yet manage signals for subprocesses reliably, which can lead to unexpected behavior.
 ## Exercise caution before expanding its usage in production environments.
 ## For more information, see https://github.com/casey/just/issues/2473 .

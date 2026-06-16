@@ -10,3 +10,21 @@
 venv
 .git
 .envs/
+
+# Python virtualenv and caches (host-built, wrong arch, slow to copy)
+.venv
+__pycache__/
+*.py[cod]
+.ruff_cache
+.mypy_cache
+.pytest_cache
+.coverage
+.coverage.*
+htmlcov/
+
+# Node
+node_modules
+
+# Collected static / build artifacts
+staticfiles/
+.vscode
