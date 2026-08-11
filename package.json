@@ -2,8 +2,8 @@
   "name": "truss",
   "version": "0.1.0",
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
     "@popperjs/core": "^2.10.2",
     "autoprefixer": "^10.4.0",
     "babel-loader": "^10.0.0",
@@ -14,13 +14,13 @@
     "pixrem": "^5.0.0",
     "postcss": "^8.3.11",
     "postcss-loader": "^8.0.0",
-    "postcss-preset-env": "^10.0.3",
+    "postcss-preset-env": "^11.3.2",
     "sass": "^1.93.1",
-    "sass-loader": "^16.0.1",
+    "sass-loader": "^17.0.0",
     "webpack": "^5.82.0",
     "webpack-bundle-tracker": "^3.0.1",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.0.2",
+    "webpack-cli": "^7.2.2",
+    "webpack-dev-server": "^6.0.0",
     "webpack-merge": "^6.0.1"
   },
   "engines": {
