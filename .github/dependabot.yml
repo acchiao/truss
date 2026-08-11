@@ -61,7 +61,6 @@ updates:
   - package-ecosystem: docker
     directories:
       - compose/local/node/
-      - compose/production/aws/
       - compose/production/postgres/
       - compose/production/traefik/
     schedule:
@@ -83,3 +82,33 @@ updates:
       prefix: build
       include: scope
     open-pull-requests-limit: 20
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+      time: "09:00"
+      timezone: America/Los_Angeles
+    commit-message:
+      prefix: build
+      include: scope
+    open-pull-requests-limit: 20
+    groups:
+      npm:
+        patterns:
+          - "*"
+
+  - package-ecosystem: pre-commit
+    directory: /
+    schedule:
+      interval: daily
+      time: "09:00"
+      timezone: America/Los_Angeles
+    commit-message:
+      prefix: build
+      include: scope
+    open-pull-requests-limit: 20
+    groups:
+      pre-commit:
+        patterns:
+          - "*"
