@@ -37,7 +37,7 @@ dependencies = [
   "python-slugify==8.0.4",
   "redis==8.1.0",
   "sentry-sdk==2.68.0",
-  "uvicorn[standard]==0.52.3",
+  "uvicorn[standard]==0.52.4",
   "uvicorn-worker==0.4.0",
   "whitenoise==6.12.0",
 ]
@@ -59,7 +59,7 @@ dev = [
   "pytest==9.1.1",
   "pytest-django==4.14.0",
   "pytest-sugar==1.1.1",
-  "ruff==0.16.3",
+  "ruff==0.16.4",
   "sphinx==9.1.0",
   "sphinx-autobuild==2025.8.25",
   "watchfiles==1.2.0",
