@@ -34,7 +34,7 @@ dependencies = [
   "hiredis==3.4.1",
   "pillow==12.3.0",
   "psycopg[c]==3.3.5",
-  "python-slugify==8.0.4",
+  "python-slugify==9.0.0",
   "redis==8.1.0",
   "sentry-sdk==2.69.1",
   "uvicorn[standard]==0.52.4",
