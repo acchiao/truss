@@ -413,15 +413,15 @@ wheels = [
 
 [[package]]
 name = "django-allauth"
-version = "65.19.4"
+version = "65.19.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c2/2c/4c7a046f363396093d825df208d1b621ec9591ac30ea4657c26cda5f549c/django_allauth-65.19.4.tar.gz", hash = "sha256:7ea5f0057f91fa25f9ca7814f84aed63a66096b43df073fbdf1ef0167bc92f1d", size = 2293509, upload-time = "2026-09-17T13:29:20.775Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/03/0d/ca8cc8244849299160c433b7738a3f318eaad1967761083b44b0b2bee80c/django_allauth-65.19.5.tar.gz", hash = "sha256:03fdb1431e8cecd55071e6c3a3006f2fe1a45b916ee2bf5d14ed0fdadea3b7e5", size = 2294382, upload-time = "2026-09-28T19:45:56.88Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/53/04/7e47e7f33c25f1edbc5d5278fc4cdf1875399eecdcb36b5588c53550f770/django_allauth-65.19.4-py3-none-any.whl", hash = "sha256:a4f13476ad460ab1098af6be41ae72ed1d07498dd4514e05b9daef09a6c1cabd", size = 2075786, upload-time = "2026-09-17T13:27:51.745Z" },
+    { url = "https://files.pythonhosted.org/packages/32/c5/6500f20404c8fe31ef328ffd4f165f0517c7cb8c189cf2f91c7b6f9ae687/django_allauth-65.19.5-py3-none-any.whl", hash = "sha256:eda48d77cd790d2e60862993fe19e59ff2e18c6be8aa490d407e0ee1108dd385", size = 2076097, upload-time = "2026-09-28T19:45:54.025Z" },
 ]
 
 [package.optional-dependencies]
@@ -663,7 +663,7 @@ wheels = [
 
 [[package]]
 name = "djlint"
-version = "1.46.2"
+version = "1.46.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -674,18 +674,18 @@ dependencies = [
     { name = "pyyaml" },
     { name = "regex" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/90/46/6338588e398bf9ff7df26a8d6b8898fceeaeba3aca5f47a4b74d238b09b9/djlint-1.46.2.tar.gz", hash = "sha256:f3f13ecc090c4cbf898b0e38e11e0cbaaba7dd05af207247c0ec3bb471518f94", size = 126576, upload-time = "2026-09-20T00:16:04.393Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/68/48/3d8bd655cb054cbcc6f4764e742f07809430b601e32845bdede9245b3819/djlint-1.46.3.tar.gz", hash = "sha256:3443bfe0f7973a8888d6768f37bce9979faeeb2acd8c662ab765ced7409b8677", size = 127892, upload-time = "2026-09-28T21:50:02.176Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b5/eb/423ef21a4fba5a0c714c7e4bca00292aa1a5bfece7c17bff0555843082e0/djlint-1.46.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:8d24616ec435136890d2f413c0a3fe8d504580e08a10b07600133e75168c97f7", size = 1340179, upload-time = "2026-09-20T00:15:00.549Z" },
-    { url = "https://files.pythonhosted.org/packages/1f/38/5aa15352afa9c55faec5034783ca5b35e3461b5a56166eef6ba73390043f/djlint-1.46.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:4e38ad701d28838b71f4b59fcd3c7bbc4b0d84fe91e1971ee1e01e85d387eab1", size = 1260496, upload-time = "2026-09-20T00:15:01.738Z" },
-    { url = "https://files.pythonhosted.org/packages/30/e7/d2d20ba1f09bd446a4dc7a0accf3073f8d6f258230f312ecedbdb7320b28/djlint-1.46.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:44e76852a1b1183c27f1b22fbbdb686b6917ca1d2d5dfa06e0c74d54e986100a", size = 1316368, upload-time = "2026-09-20T00:15:02.955Z" },
-    { url = "https://files.pythonhosted.org/packages/f9/a8/c7ee97d73b2ba4afda480125dbef6711758cb593ef560055deb7ea3d228d/djlint-1.46.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3529431ddd2aa29a9d2a5a4ac23e12cd4d8fa9a614cc72589ff36cb29a8f7609", size = 1380558, upload-time = "2026-09-20T00:15:04.105Z" },
-    { url = "https://files.pythonhosted.org/packages/a8/c6/5c02a654d7faeb7bdb8a17ec3864efa90498b762f616dae36989c6b91bf4/djlint-1.46.2-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:82bc6d81231d1dae1b8add7454f21ff776bc86134e77444b4f90dc3ff6d6f922", size = 1336117, upload-time = "2026-09-20T00:15:05.419Z" },
-    { url = "https://files.pythonhosted.org/packages/01/be/724591c9eadfc4c915cf02b6bf62ed5d5134a0fcdab55cf757527da44964/djlint-1.46.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:c47f2c1017ae58334c457cdb7ac6885fbd6ff3fbbdbdfba32c0d9c1bb95bd476", size = 1404846, upload-time = "2026-09-20T00:15:06.754Z" },
-    { url = "https://files.pythonhosted.org/packages/0c/26/17ce1ac083cac6e62a3e0299b21f0639eb67b9af66dec1851c9e18b2f7b1/djlint-1.46.2-cp313-cp313-win32.whl", hash = "sha256:c89cb8762f2cb047dad25d0b66e4ee79d55f1f00bec2ed3b711aea13d2f4a200", size = 1028674, upload-time = "2026-09-20T00:15:08.175Z" },
-    { url = "https://files.pythonhosted.org/packages/6e/09/4912e365635a1a9154a667609cc211a2dd5be50e8031c60c9cbfb9cfdd0e/djlint-1.46.2-cp313-cp313-win_amd64.whl", hash = "sha256:c0837fddc5cc97070ee32013a4db80de8d0167115672caf97657a21d85e8e4d5", size = 1164989, upload-time = "2026-09-20T00:15:09.38Z" },
-    { url = "https://files.pythonhosted.org/packages/5e/7c/9db06a89fc553b0088dd9ea2b535548f069b255bbf68fa753e60f09c7279/djlint-1.46.2-cp313-cp313-win_arm64.whl", hash = "sha256:280fb001de9b9c57f5a7ede4618cf77f67699af6cddb6a72ae385df1a13437a6", size = 1030821, upload-time = "2026-09-20T00:15:10.534Z" },
-    { url = "https://files.pythonhosted.org/packages/de/33/4fa1ff3bfbd4b7e61161cacbea81d22b8a6dd7e3144cb2b1dc33dc27d3ac/djlint-1.46.2-py3-none-any.whl", hash = "sha256:c9921fe7183a5bd038542b7cd6a0443fdfb5362c2cc07ca2fff130fd58a2cccd", size = 160265, upload-time = "2026-09-20T00:16:03.34Z" },
+    { url = "https://files.pythonhosted.org/packages/48/70/431412923c5ecc5727c7a7e509592de9143cc1b38a94debea1fd59f98c90/djlint-1.46.3-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:aa4993c7e10cf72e9528d28053234fd1d5360287f6950d6abb09d6c7a0caa1d0", size = 1346547, upload-time = "2026-09-28T21:48:51.616Z" },
+    { url = "https://files.pythonhosted.org/packages/fb/47/67928d76352c70b94c92f7d5e52a1ab324e119afc8c99bfe288276277a44/djlint-1.46.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:54284671d2a1eaf40e7608b8f1e4a8282f9722c41e675c6e879caaeb36def9a5", size = 1266580, upload-time = "2026-09-28T21:48:52.845Z" },
+    { url = "https://files.pythonhosted.org/packages/35/ed/bad142a593fbcffb77f529b5d0dd5dc544d5e77da50e82937ccd3a94b746/djlint-1.46.3-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:e6813dcfc5589b3891b088ea8f58f42b9d88ec8d99b8cecf2eb26128c5e89be6", size = 1324063, upload-time = "2026-09-28T21:48:54.306Z" },
+    { url = "https://files.pythonhosted.org/packages/2e/ab/37c72c0a122695fe699251bb82e1258f51a92b907ee0002ead82532a2fc5/djlint-1.46.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3926de1caf27605b8dc2035465bd3b222c492ac420157bccc7f3353a78441f0e", size = 1388122, upload-time = "2026-09-28T21:48:56.747Z" },
+    { url = "https://files.pythonhosted.org/packages/80/ea/67e570a3bbb41df2303dbb1592380de5bec8e80b6637bf34775b2a621130/djlint-1.46.3-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:0232a9db2461d69a4cd7d8e1591ba73783b9da3ac76f10f1c446f883c36186e5", size = 1341782, upload-time = "2026-09-28T21:48:58.097Z" },
+    { url = "https://files.pythonhosted.org/packages/66/94/9722b84fead3486a232096bcb3cd89f517841b918543bb79b2187f4b2a42/djlint-1.46.3-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:1f7c249b1ba1ec9e930a3c06f3711dbeac079a75a533bd4865e504dc19bb6b9a", size = 1412740, upload-time = "2026-09-28T21:48:59.758Z" },
+    { url = "https://files.pythonhosted.org/packages/74/7e/b8aef673274936c6977f7991d644190caaee4f5a08ed4fe5518df351961e/djlint-1.46.3-cp313-cp313-win32.whl", hash = "sha256:284d0826f9d4877fd415f1a5128ec16a691a2d25a5ea77b8c2e14c67537c8bd9", size = 1031532, upload-time = "2026-09-28T21:49:01.046Z" },
+    { url = "https://files.pythonhosted.org/packages/26/f5/4291c80cc4a5cec5e2dab869742e46a3c92ed1a42df84b0dd8f088f73d47/djlint-1.46.3-cp313-cp313-win_amd64.whl", hash = "sha256:482a8d61b2e7a80b3f097b1e2be42f07b850b0e37849759848ea8db909088cbf", size = 1169428, upload-time = "2026-09-28T21:49:02.306Z" },
+    { url = "https://files.pythonhosted.org/packages/e3/c8/335d5c2fb9be4c5098447705b3fc44300685302b1485c51fde1b41403b5b/djlint-1.46.3-cp313-cp313-win_arm64.whl", hash = "sha256:cda40d3a071ac25bd6bbb8e4d39dd5e3eb57055588fc26063530bf6400909e96", size = 1091766, upload-time = "2026-09-28T21:49:04.069Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/eb/7f17dd3cefc9744ba28564b48c9ffe783a157569475840aa2744bbb20d20/djlint-1.46.3-py3-none-any.whl", hash = "sha256:a612c334328a258bd08edf90e20168a14939899aa548d678d227b4e891071039", size = 161762, upload-time = "2026-09-28T21:50:00.525Z" },
 ]
 
 [[package]]
@@ -2025,7 +2025,7 @@ requires-dist = [
     { name = "celery", specifier = "==5.6.3" },
     { name = "crispy-bootstrap5", specifier = "==2026.9" },
     { name = "django", specifier = "==6.0.8" },
-    { name = "django-allauth", extras = ["mfa"], specifier = "==65.19.4" },
+    { name = "django-allauth", extras = ["mfa"], specifier = "==65.19.5" },
     { name = "django-anymail", extras = ["sendgrid"], specifier = "==15.2" },
     { name = "django-celery-beat", specifier = "==2.9.0" },
     { name = "django-cors-headers", specifier = "==4.9.0" },
@@ -2058,7 +2058,7 @@ dev = [
     { name = "django-extensions", specifier = "==4.1" },
     { name = "django-stubs", extras = ["compatible-mypy"], specifier = "==6.1.1" },
     { name = "djangorestframework-stubs", specifier = "==3.18.1" },
-    { name = "djlint", specifier = "==1.46.2" },
+    { name = "djlint", specifier = "==1.46.3" },
     { name = "factory-boy", specifier = "==3.3.3" },
     { name = "ipdb", specifier = "==0.13.13" },
     { name = "mypy", specifier = "==2.3.1" },
