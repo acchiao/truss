@@ -36,7 +36,7 @@ dependencies = [
   "psycopg[c]==3.3.9",
   "python-slugify==9.2.0",
   "redis==8.1.0",
-  "sentry-sdk==2.75.0",
+  "sentry-sdk==3.0.0",
   "uvicorn[standard]==0.54.0",
   "uvicorn-worker==0.4.0",
   "whitenoise==6.12.0",
