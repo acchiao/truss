@@ -35,7 +35,7 @@ dependencies = [
   "pillow==13.0.0",
   "psycopg[c]==3.3.9",
   "python-slugify==9.2.0",
-  "redis==8.1.0",
+  "redis==8.2.0",
   "sentry-sdk==3.0.0",
   "uvicorn[standard]==0.54.0",
   "uvicorn-worker==0.4.0",
@@ -44,7 +44,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "coverage==7.17.4",
+  "coverage==7.17.5",
   "django-coverage-plugin==3.2.2",
   "django-debug-toolbar==8.0.0",
   "django-extensions==4.1",
